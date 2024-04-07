@@ -4,7 +4,7 @@ public class Main {
     private MicroProcessor microprcessor;
 
 
-    private Main( ) {
+    private Main() {
         this.microprcessor = new MicroProcessor();
     }
 
@@ -31,7 +31,5 @@ public class Main {
         main.run();
         main.finish();
     }
-
-
 
 }

@@ -10,7 +10,10 @@ public class CPU {
     }
     public enum EOpcode{
         eMove,
+        eLoad,
+        eStore,
         eAdd,
+
     }
 
     enum ERegisters {
@@ -18,7 +21,8 @@ public class CPU {
         eMBR,
         ePC,
         eIR,
-        eAC,
+        eR0,
+        eR1
     }
 
     public CPU() {
@@ -32,7 +36,6 @@ public class CPU {
     }
     private void move(ERegisters eTarget, ERegisters eSourse) {
         registers[eTarget.ordinal()] = registers[eSourse.ordinal()]; // move
-
     }
     private int get(ERegisters eRegister) {
         return registers[eRegister.ordinal()];
@@ -53,6 +56,7 @@ public class CPU {
         this.excute();
     }
     private void fetch() {
+        System.out.println("----------fetch----------");
         move(ERegisters.eMAR, ERegisters.ePC);
         set(ERegisters.eMBR, bus.load(EDeviceId.eMemory, get(ERegisters.eMAR)));
         move(ERegisters.eIR, ERegisters.eMBR);
