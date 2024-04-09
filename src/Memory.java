@@ -17,11 +17,7 @@ public class Memory {
 
     public int load(int address) {
         if (address >= 0 && address < data.size()) {
-            String instruction = data.get(address);
-            // 명령어에 포함된 0x를 제거하고 정수로 변환
-            instruction = instruction.replaceAll("0x", "");
-            System.out.println(instruction);
-            return Integer.parseInt(instruction, 16); // 주어진 주소에서 값을 로드
+            return data.get(address); // 주어진 주소에서 값을 로드
         }
         return 0; // 유효하지 않은 주소면 0 반환
     }

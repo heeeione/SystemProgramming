@@ -1,7 +1,5 @@
 public class CPU {
 
-    int registers[] = new int[ERegisters.values().length];
-
     private Bus bus;
 
     public enum EDeviceId{
@@ -15,6 +13,29 @@ public class CPU {
         eAdd,
 
     }
+    public enum EStatus {
+        eZero(0xFE, 0x01,0x01);
+        private int nClear;
+        private int nSet;
+        private int nGet;
+        private EStatus(int nClear, int nSet, int nGet) {
+            this.nClear = nClear;
+            this.nSet = nSet;
+            this.nGet = nGet;
+        }
+
+        public int getNClear() {
+            return nClear;
+        }
+
+        public int getNGet() {
+            return nGet;
+        }
+
+        public int getNSet() {
+            return nSet;
+        }
+    }
 
     enum ERegisters {
         eMAR,
@@ -22,8 +43,10 @@ public class CPU {
         ePC,
         eIR,
         eR0,
-        eR1
+        eR1,
+        eStatus
     }
+    int[] registers = new int[ERegisters.values().length];
 
     public CPU() {
 
@@ -34,17 +57,32 @@ public class CPU {
     public void initialize() {
 
     }
-    private void move(ERegisters eTarget, ERegisters eSourse) {
-        registers[eTarget.ordinal()] = registers[eSourse.ordinal()]; // move
-    }
     private int get(ERegisters eRegister) {
         return registers[eRegister.ordinal()];
     }
     private int set(ERegisters eRegister, int value) {
         return registers[eRegister.ordinal()] = value;
     }
+    private void setZero(boolean bResult) {
+        if (bResult) {
+            this.registers[ERegisters.eStatus.ordinal()] = this.registers[ERegisters.eStatus.ordinal()] & EStatus.eZero.getNClear();
+        } else {
+            this.registers[ERegisters.eStatus.ordinal()] = this.registers[ERegisters.eStatus.ordinal()] | EStatus.eZero.getNSet();
+        }
+    }
+    private boolean getZeroFlag()  { // jmp zero etc ...
+        return true;
+    }
+    private void setMinus(boolean bResult) {
 
+    }
 
+    // instructions
+    private void move(ERegisters eTarget, ERegisters eSourse) {
+        registers[eTarget.ordinal()] = registers[eSourse.ordinal()]; // move
+    }
+
+    // instruction execution cycle
     private void excute() {
 
     }
