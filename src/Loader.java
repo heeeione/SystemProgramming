@@ -12,7 +12,7 @@ public class Loader {
     public void loadFromFile(String filename) {
         try (BufferedReader br = new BufferedReader(new FileReader(filename))) {
             String line;
-            int address = 0; // 메모리 주소®
+            int address = 0; // 메모리 주소
 
             while ((line = br.readLine()) != null) {
                 memory.store(address++, line);
