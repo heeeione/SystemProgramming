@@ -1,0 +1,51 @@
+.header
+int count
+int sum
+int i
+
+.code
+//count = 10;
+LOD 10
+STO @count
+
+//sum = 0;
+LOD 0
+STO @sum
+
+//i=0;
+LOD 0
+STO @i
+
+
+start:
+
+//read i
+//MBR,AC=Memory[@i] at
+LOD @i
+
+//AC = AC-count (i-count)
+SUB @count
+
+//if(AC=0) then Jump to : end label
+EZJ end
+
+//read sum //MBR,AC = Memory[@sum]
+LOD @sum
+
+//AC = AC+1 (Sum=Sum+1)
+ADD 1
+//Memory[@sum] = AC
+STO @sum
+
+//i = i+1
+LOD @i
+ADD 1
+STO @i
+
+JMP start
+
+end:
+PRT @sum
+HALT
+
+.end
